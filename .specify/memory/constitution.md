@@ -1,22 +1,8 @@
 <!--
 Sync Impact Report:
-- Version change: 1.0.0 -> 2.0.0
+- Version change: 2.0.0 -> 2.1.0
 - List of modified principles:
-  - Redefined core architecture from generic web React to Expo + React Native engineering portfolio project
-  - Added strict layer boundaries (app/, src/presentation/, src/data/repository/, src/data/source/, src/data/local/)
-  - Defined explicit 3-second watchdog heartbeat, explicit connection state, and stale data retention
-  - Defined summary-only SQLite persistence and in-memory-only live GPS trace
-  - Enforced deterministic testing with controllable fakes and fake timers
-- Added sections:
-  - Core Identity & Scope
-  - Technology Stack (Non-Negotiable)
-  - Architecture & Layer Boundaries
-  - Domain & Data Integrity Rules
-  - UI & Visual Standards
-  - Testing & Verification Standards
-  - Governance & Workflow
-- Removed sections: Generic web constraints
-- Follow-up TODOs: None
+  - Added "Explicit Commit Approval" to Governance & Workflow: strictly forbidding automated Git commits or pushes without explicit developer confirmation
 -->
 
 # DroneOps (React Native) Constitution
@@ -56,6 +42,7 @@ Automated tests MUST be 100% deterministic. Tests must use controllable fakes (`
 
 - **Inspect Before Planning**: Before generating a feature plan or task list, inspect actual repository files rather than assuming paths or configurations exist.
 - **Scope Discipline**: Every feature spec must include explicit non-goals to prevent scope creep. Do not introduce abstractions, libraries, or features without a clear user or engineering benefit.
+- **Explicit Commit Approval**: Agents MUST NEVER automatically stage, commit, or push files. All generated code and documentation must remain in the working tree for user review. Git commits and pushes require explicit developer confirmation.
 - **Verification Gate**: Every task is incomplete until `npx tsc --noEmit` and `npm test` pass cleanly.
 - **Concise Communication**: Keep agent responses short, direct, and focused.
 - **Amendments & Versioning**: Constitution changes require explicit justification and version increment:
@@ -63,4 +50,4 @@ Automated tests MUST be 100% deterministic. Tests must use controllable fakes (`
   - **MINOR**: Additions of new principles or non-breaking constraints.
   - **PATCH**: Wording improvements and typo corrections.
 
-**Version**: 2.0.0 | **Ratified**: 2026-11-23 | **Last Amended**: 2026-11-23
+**Version**: 2.1.0 | **Ratified**: 2026-11-23 | **Last Amended**: 2026-11-23
