@@ -109,9 +109,10 @@ npx tsc --noEmit
 
 ---
 
-## Related Projects
+## Related Projects & Migration Tracking
 
 - **Android Native Client**: [sharmavikas212/DroneOps](https://github.com/sharmavikas212/DroneOps) — Native Kotlin/Jetpack Compose reference implementation.
+- **Migration Matrix & Roadmap**: [docs/migration-matrix.md](docs/migration-matrix.md) — Comprehensive tracking document mapping every native Android component to its React Native counterpart and SpecKit feature status.
 
 ---
 
