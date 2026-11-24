@@ -46,6 +46,7 @@ export class FlightHistoryController {
     }
 
     try {
+      await this.dao.initDatabase();
       const records = await this.dao.getAllFlightRecords();
       this.updateState({
         records,

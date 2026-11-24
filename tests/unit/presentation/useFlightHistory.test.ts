@@ -85,6 +85,12 @@ describe('FlightHistoryController - User Story 1 (History & Empty State)', () =>
     expect(state.errorMessage).toBe('SQLite disk I/O failure');
   });
 
+  it('calls dao.initDatabase to ensure flight_records table exists', async () => {
+    const initSpy = jest.spyOn(dao, 'initDatabase');
+    await controller.loadRecords();
+    expect(initSpy).toHaveBeenCalled();
+  });
+
   it('notifies subscribers on state updates', async () => {
     const listener = jest.fn();
     const unsubscribe = controller.subscribe(listener);
