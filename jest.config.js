@@ -6,6 +6,7 @@ module.exports = {
     '^@/(.*)$': '<rootDir>/src/$1',
     '^react-native$': '<rootDir>/tests/__mocks__/react-native.ts',
     '^expo-sqlite$': '<rootDir>/tests/__mocks__/expo-sqlite.ts',
+    '^react-native-maps$': '<rootDir>/tests/__mocks__/react-native-maps.ts',
   },
   transform: {
     '^.+\\.(ts|tsx)$': ['ts-jest', {

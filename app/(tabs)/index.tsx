@@ -7,6 +7,7 @@ import React from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { ConnectionStatusBadge } from '../../src/presentation/components/ConnectionStatusBadge';
 import { StaleDataWarningBanner } from '../../src/presentation/components/StaleDataWarningBanner';
+import { TacticalMap } from '../../src/presentation/components/TacticalMap';
 import { TelemetryGrid } from '../../src/presentation/components/TelemetryGrid';
 import { useTelemetryContext } from '../../src/presentation/hooks/useTelemetryContext';
 import { colors } from '../../src/theme/colors';
@@ -62,6 +63,14 @@ export default function DroneDashboardScreen() {
 
         {/* Primary Flight Telemetry Grid */}
         <TelemetryGrid telemetry={telemetry} isStale={isStale} />
+
+        {/* Tactical Map HUD & Live Flight Snail Trail */}
+        <TacticalMap
+          telemetry={telemetry}
+          breadcrumbs={breadcrumbs}
+          isStale={isStale}
+          connectionState={connectionState}
+        />
 
         {/* GPS Coordinates & Breadcrumb Status Card */}
         <View style={styles.card}>

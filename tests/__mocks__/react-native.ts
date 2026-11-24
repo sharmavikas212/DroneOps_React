@@ -28,6 +28,17 @@ export const RefreshControl = (props: any) =>
 export const SafeAreaView = (props: any) =>
   React.createElement('SafeAreaView', props, props?.children);
 
+export const Platform = {
+  OS: 'android',
+  select: (objs: any) => objs.android ?? objs.default,
+};
+
+export const PanResponder = {
+  create: (config: any) => ({
+    panHandlers: {},
+  }),
+};
+
 export default {
   StyleSheet,
   View,
@@ -40,4 +51,6 @@ export default {
   ScrollView,
   RefreshControl,
   SafeAreaView,
+  Platform,
+  PanResponder,
 };

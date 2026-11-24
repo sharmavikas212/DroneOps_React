@@ -23,8 +23,8 @@ description: "Task list for Tactical Map & Live Snail Trail Visualization implem
 
 **Purpose**: Mathematical projection models, viewport interfaces, and geometric calculation utilities.
 
-- [ ] T001 [P] Define `MapViewportState` and `TrailSegment` interfaces in `src/presentation/state/MapViewportState.ts` citing constraints from `data-model.md` for `MapViewportState.centerCoordinate`, `MapViewportState.zoomLevel`, `MapViewportState.metersPerPixel`, `MapViewportState.isAutoFollow`, `MapViewportState.panOffset`, `MapViewportState.viewportWidth`, and `MapViewportState.viewportHeight`
-- [ ] T002 [P] Implement pure coordinate projection and distance calculations in `src/presentation/utils/tacticalProjection.ts` implementing `geoToScreen`, `screenToGeo`, `calculateDistanceMeters`, and `calculateBearingDegrees` citing constraints from `data-model.md` for `GeoCoordinate.latitude`, `GeoCoordinate.longitude`, `ScreenPoint.x`, and `ScreenPoint.y` conforming to `specs/004-map-snail-trail/contracts/tactical-projection.contract.ts`
+- [X] T001 [P] Define `MapViewportState` and `TrailSegment` interfaces in `src/presentation/state/MapViewportState.ts` citing constraints from `data-model.md` for `MapViewportState.centerCoordinate`, `MapViewportState.zoomLevel`, `MapViewportState.metersPerPixel`, `MapViewportState.isAutoFollow`, `MapViewportState.panOffset`, `MapViewportState.viewportWidth`, and `MapViewportState.viewportHeight`
+- [X] T002 [P] Implement pure coordinate projection and distance calculations in `src/presentation/utils/tacticalProjection.ts` implementing `geoToScreen`, `screenToGeo`, `calculateDistanceMeters`, and `calculateBearingDegrees` citing constraints from `data-model.md` for `GeoCoordinate.latitude`, `GeoCoordinate.longitude`, `ScreenPoint.x`, and `ScreenPoint.y` conforming to `specs/004-map-snail-trail/contracts/tactical-projection.contract.ts`
 
 ---
 
@@ -34,9 +34,9 @@ description: "Task list for Tactical Map & Live Snail Trail Visualization implem
 
 ⚠️ **CRITICAL**: No user story UI work can begin until this foundational phase is complete.
 
-- [ ] T003 [P] Create unit test suite for tactical coordinate projection in `tests/unit/presentation/tacticalProjection.test.ts` verifying forward projection, inverse projection, heading orientation, distance calculation, and scale transformations under boundary coordinates
-- [ ] T004 [P] Create unit test suite for viewport tracking hook in `tests/unit/presentation/useMapViewport.test.ts` verifying default auto-follow tracking, zoom-level clamping, manual pan offset handling, and re-centering resets citing constraints from `data-model.md` for `MapViewportState.zoomLevel` and `MapViewportState.isAutoFollow`
-- [ ] T005 Implement `useMapViewport` presentation hook in `src/presentation/hooks/useMapViewport.ts` managing reactive viewport state, camera center coordinates, zoom adjustments, manual pan offsets, and re-center handler citing constraints from `data-model.md` for `MapViewportState.centerCoordinate`, `MapViewportState.zoomLevel`, `MapViewportState.panOffset`, and `MapViewportState.isAutoFollow`
+- [X] T003 [P] Create unit test suite for tactical coordinate projection in `tests/unit/presentation/tacticalProjection.test.ts` verifying forward projection, inverse projection, heading orientation, distance calculation, and scale transformations under boundary coordinates
+- [X] T004 [P] Create unit test suite for viewport tracking hook in `tests/unit/presentation/useMapViewport.test.ts` verifying default auto-follow tracking, zoom-level clamping, manual pan offset handling, and re-centering resets citing constraints from `data-model.md` for `MapViewportState.zoomLevel` and `MapViewportState.isAutoFollow`
+- [X] T005 Implement `useMapViewport` presentation hook in `src/presentation/hooks/useMapViewport.ts` managing reactive viewport state, camera center coordinates, zoom adjustments, manual pan offsets, and re-center handler citing constraints from `data-model.md` for `MapViewportState.centerCoordinate`, `MapViewportState.zoomLevel`, `MapViewportState.panOffset`, and `MapViewportState.isAutoFollow`
 
 **Checkpoint**: Foundation ready — user story implementation can now begin.
 
@@ -52,14 +52,14 @@ description: "Task list for Tactical Map & Live Snail Trail Visualization implem
 
 > **NOTE: Write these tests FIRST and ensure they FAIL before implementing component updates.**
 
-- [ ] T006 [P] [US1] Unit test for `DroneMarker` rotation and positioning in `tests/unit/presentation/DroneMarker.test.tsx` verifying screen coordinates and compass heading transform citing constraints from `data-model.md` for `ScreenPoint.x` and `ScreenPoint.y`
-- [ ] T007 [P] [US1] Unit test for `TacticalMap` base container in `tests/unit/presentation/TacticalMap.test.tsx` verifying idle state ("Awaiting Telemetry Signal"), radar grid rendering, and live drone marker positioning citing constraints from `data-model.md` for `GeoCoordinate.latitude` and `GeoCoordinate.longitude`
+- [X] T006 [P] [US1] Unit test for `DroneMarker` rotation and positioning in `tests/unit/presentation/DroneMarker.test.tsx` verifying screen coordinates and compass heading transform citing constraints from `data-model.md` for `ScreenPoint.x` and `ScreenPoint.y`
+- [X] T007 [P] [US1] Unit test for `TacticalMap` base container in `tests/unit/presentation/TacticalMap.test.tsx` verifying idle state ("Awaiting Telemetry Signal"), radar grid rendering, and live drone marker positioning citing constraints from `data-model.md` for `GeoCoordinate.latitude` and `GeoCoordinate.longitude`
 
 ### Implementation for User Story 1
 
-- [ ] T008 [P] [US1] Implement `DroneMarker` component in `src/presentation/components/DroneMarker.tsx` rendering a high-visibility directional chevron rotated to heading angle with nominal cyan styling conforming to `specs/004-map-snail-trail/contracts/tactical-map-components.contract.ts`
-- [ ] T009 [US1] Implement tactical radar container `TacticalMap` in `src/presentation/components/TacticalMap.tsx` rendering concentric range rings, cardinal axes, idle status banner, and the drone marker using `useMapViewport` and `tacticalProjection` conforming to `specs/004-map-snail-trail/contracts/tactical-map-components.contract.ts`
-- [ ] T010 [US1] Integrate `TacticalMap` into `app/(tabs)/index.tsx` replacing textual-only GPS breadcrumb display with the tactical visual map, wired to `useTelemetryContext` with zero business logic per Constitution Principle II
+- [X] T008 [P] [US1] Implement `DroneMarker` component in `src/presentation/components/DroneMarker.tsx` rendering a high-visibility directional chevron rotated to heading angle with nominal cyan styling conforming to `specs/004-map-snail-trail/contracts/tactical-map-components.contract.ts`
+- [X] T009 [US1] Implement tactical radar container `TacticalMap` in `src/presentation/components/TacticalMap.tsx` rendering concentric range rings, cardinal axes, idle status banner, and the drone marker using `useMapViewport` and `tacticalProjection` conforming to `specs/004-map-snail-trail/contracts/tactical-map-components.contract.ts`
+- [X] T010 [US1] Integrate `TacticalMap` into `app/(tabs)/index.tsx` replacing textual-only GPS breadcrumb display with the tactical visual map, wired to `useTelemetryContext` with zero business logic per Constitution Principle II
 
 **Checkpoint**: User Story 1 is fully functional and testable independently as an MVP.
 
@@ -75,12 +75,12 @@ description: "Task list for Tactical Map & Live Snail Trail Visualization implem
 
 > **NOTE: Write these tests FIRST and ensure they FAIL before implementing trail components.**
 
-- [ ] T011 [P] [US2] Unit test for `SnailTrail` path projection and rendering in `tests/unit/presentation/SnailTrail.test.tsx` verifying sequential coordinate connections and stationary hover deduplication citing constraints from `data-model.md` for `BreadcrumbPoint.latitude`, `BreadcrumbPoint.longitude`, and `BreadcrumbPoint.timestamp`
+- [X] T011 [P] [US2] Unit test for `SnailTrail` path projection and rendering in `tests/unit/presentation/SnailTrail.test.tsx` verifying sequential coordinate connections and stationary hover deduplication citing constraints from `data-model.md` for `BreadcrumbPoint.latitude`, `BreadcrumbPoint.longitude`, and `BreadcrumbPoint.timestamp`
 
 ### Implementation for User Story 2
 
-- [ ] T012 [P] [US2] Implement `SnailTrail` component in `src/presentation/components/SnailTrail.tsx` rendering connecting line segments and breadcrumb nodes across sequential projected points citing constraints from `data-model.md` for `ScreenPoint.x` and `ScreenPoint.y` conforming to `specs/004-map-snail-trail/contracts/tactical-map-components.contract.ts`
-- [ ] T013 [US2] Embed `SnailTrail` into `TacticalMap.tsx` in `src/presentation/components/TacticalMap.tsx` mapping in-memory `breadcrumbs` to screen points using `tacticalProjection.geoToScreen` with stationary hover deduplication
+- [X] T012 [P] [US2] Implement `SnailTrail` component in `src/presentation/components/SnailTrail.tsx` rendering connecting line segments and breadcrumb nodes across sequential projected points citing constraints from `data-model.md` for `ScreenPoint.x` and `ScreenPoint.y` conforming to `specs/004-map-snail-trail/contracts/tactical-map-components.contract.ts`
+- [X] T013 [US2] Embed `SnailTrail` into `TacticalMap.tsx` in `src/presentation/components/TacticalMap.tsx` mapping in-memory `breadcrumbs` to screen points using `tacticalProjection.geoToScreen` with stationary hover deduplication
 
 **Checkpoint**: User Stories 1 AND 2 work together independently.
 
@@ -96,12 +96,12 @@ description: "Task list for Tactical Map & Live Snail Trail Visualization implem
 
 > **NOTE: Write these tests FIRST and ensure they FAIL before implementing Home marker.**
 
-- [ ] T014 [P] [US3] Unit test for `HomeMarker` in `tests/unit/presentation/HomeMarker.test.tsx` verifying origin pin positioning and visual distinction from drone marker citing constraints from `data-model.md` for `HomePoint.latitude` and `HomePoint.longitude`
+- [X] T014 [P] [US3] Unit test for `HomeMarker` in `tests/unit/presentation/HomeMarker.test.tsx` verifying origin pin positioning and visual distinction from drone marker citing constraints from `data-model.md` for `HomePoint.latitude` and `HomePoint.longitude`
 
 ### Implementation for User Story 3
 
-- [ ] T015 [P] [US3] Implement `HomeMarker` component in `src/presentation/components/HomeMarker.tsx` displaying a high-contrast launch anchor symbol conforming to `specs/004-map-snail-trail/contracts/tactical-map-components.contract.ts`
-- [ ] T016 [US3] Integrate `HomeMarker` into `TacticalMap.tsx` in `src/presentation/components/TacticalMap.tsx` pinning the marker at `breadcrumbs[0]` coordinates when flight telemetry is active
+- [X] T015 [P] [US3] Implement `HomeMarker` component in `src/presentation/components/HomeMarker.tsx` displaying a high-contrast launch anchor symbol conforming to `specs/004-map-snail-trail/contracts/tactical-map-components.contract.ts`
+- [X] T016 [US3] Integrate `HomeMarker` into `TacticalMap.tsx` in `src/presentation/components/TacticalMap.tsx` pinning the marker at `breadcrumbs[0]` coordinates when flight telemetry is active
 
 **Checkpoint**: User Stories 1, 2, AND 3 work together independently.
 
@@ -117,12 +117,12 @@ description: "Task list for Tactical Map & Live Snail Trail Visualization implem
 
 > **NOTE: Write these tests FIRST and ensure they FAIL before implementing controls.**
 
-- [ ] T017 [P] [US4] Unit test for `MapControls` in `tests/unit/presentation/MapControls.test.tsx` verifying zoom in/out button callbacks and "RE-CENTER" visibility conditioned on `isAutoFollow` citing constraints from `data-model.md` for `MapViewportState.isAutoFollow` and `MapViewportState.zoomLevel`
+- [X] T017 [P] [US4] Unit test for `MapControls` in `tests/unit/presentation/MapControls.test.tsx` verifying zoom in/out button callbacks and "RE-CENTER" visibility conditioned on `isAutoFollow` citing constraints from `data-model.md` for `MapViewportState.isAutoFollow` and `MapViewportState.zoomLevel`
 
 ### Implementation for User Story 4
 
-- [ ] T018 [P] [US4] Implement tactical `MapControls` component in `src/presentation/components/MapControls.tsx` rendering zoom in (`+`), zoom out (`-`), and conditional "RE-CENTER" buttons conforming to `specs/004-map-snail-trail/contracts/tactical-map-components.contract.ts`
-- [ ] T019 [US4] Add manual pan touch handlers and integrate `MapControls` into `TacticalMap.tsx` in `src/presentation/components/TacticalMap.tsx` wiring `onZoomIn`, `onZoomOut`, and `onRecenter` to `useMapViewport`
+- [X] T018 [P] [US4] Implement tactical `MapControls` component in `src/presentation/components/MapControls.tsx` rendering zoom in (`+`), zoom out (`-`), and conditional "RE-CENTER" buttons conforming to `specs/004-map-snail-trail/contracts/tactical-map-components.contract.ts`
+- [X] T019 [US4] Add manual pan touch handlers and integrate `MapControls` into `TacticalMap.tsx` in `src/presentation/components/TacticalMap.tsx` wiring `onZoomIn`, `onZoomOut`, and `onRecenter` to `useMapViewport`
 
 **Checkpoint**: User Stories 1, 2, 3, AND 4 work together independently.
 
@@ -138,13 +138,13 @@ description: "Task list for Tactical Map & Live Snail Trail Visualization implem
 
 > **NOTE: Write these tests FIRST and ensure they FAIL before implementing stale styling updates.**
 
-- [ ] T020 [P] [US5] Unit test for stale state and trail clearance in `tests/unit/presentation/TacticalMapStaleReset.test.tsx` verifying amber styling during watchdog timeout and complete trail purging upon `clearBreadcrumbs()`
+- [X] T020 [P] [US5] Unit test for stale state and trail clearance in `tests/unit/presentation/TacticalMapStaleReset.test.tsx` verifying amber styling during watchdog timeout and complete trail purging upon `clearBreadcrumbs()`
 
 ### Implementation for User Story 5
 
-- [ ] T021 [US5] Update `DroneMarker.tsx` and `SnailTrail.tsx` in `src/presentation/components/DroneMarker.tsx` and `src/presentation/components/SnailTrail.tsx` adding amber caution styling (`colors.warning`) when `isStale === true`
-- [ ] T022 [US5] Update `TacticalMap.tsx` in `src/presentation/components/TacticalMap.tsx` displaying tactical caution banner ("SIGNAL LOST - LAST KNOWN POSITION") during stale connection and ensuring `breadcrumbs.length === 0` resets markers and trails
-- [ ] T023 [US5] Verify tab navigation state preservation between `app/(tabs)/index.tsx` and `app/(tabs)/history.tsx` ensuring `useTelemetryContext` preserves live breadcrumbs across tab switches without resetting coordinates
+- [X] T021 [US5] Update `DroneMarker.tsx` and `SnailTrail.tsx` in `src/presentation/components/DroneMarker.tsx` and `src/presentation/components/SnailTrail.tsx` adding amber caution styling (`colors.warning`) when `isStale === true`
+- [X] T022 [US5] Update `TacticalMap.tsx` in `src/presentation/components/TacticalMap.tsx` displaying tactical caution banner ("SIGNAL LOST - LAST KNOWN POSITION") during stale connection and ensuring `breadcrumbs.length === 0` resets markers and trails
+- [X] T023 [US5] Verify tab navigation state preservation between `app/(tabs)/index.tsx` and `app/(tabs)/history.tsx` ensuring `useTelemetryContext` preserves live breadcrumbs across tab switches without resetting coordinates
 
 **Checkpoint**: All user stories are fully functional and independently testable.
 
@@ -154,10 +154,10 @@ description: "Task list for Tactical Map & Live Snail Trail Visualization implem
 
 **Purpose**: Verification against quickstart scenarios, static type checks, and complete automated test suite execution.
 
-- [ ] T024 [P] Update navigation documentation in `docs/migration-matrix.md` reflecting tactical map HUD integration
-- [ ] T025 Execute static type check (`npm run typecheck`) and resolve any TypeScript strict mode diagnostics across all new and updated files
-- [ ] T026 Execute automated test suite (`npm test`) ensuring 100% test pass rate with deterministic fakes under `jest.useFakeTimers()`
-- [ ] T027 Execute end-to-end verification following all 6 scenarios in `specs/004-map-snail-trail/quickstart.md`
+- [X] T024 [P] Update navigation documentation in `docs/migration-matrix.md` reflecting tactical map HUD integration
+- [X] T025 Execute static type check (`npm run typecheck`) and resolve any TypeScript strict mode diagnostics across all new and updated files
+- [X] T026 Execute automated test suite (`npm test`) ensuring 100% test pass rate with deterministic fakes under `jest.useFakeTimers()`
+- [X] T027 Execute end-to-end verification following all 6 scenarios in `specs/004-map-snail-trail/quickstart.md`
 
 ---
 

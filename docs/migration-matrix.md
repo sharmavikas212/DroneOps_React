@@ -42,7 +42,7 @@ The native Android application (`sharmavikas212/DroneOps` on branch `master`) co
 | **Multi-Screen Navigation Shell** | `MainActivity.kt` (Compose NavHost) | `app/_layout.tsx` (Expo Router Tabs/Stack) | **Implemented** | [002-navigation-shell](../specs/002-navigation-shell/spec.md) |
 | **Flight History Screen & UI** | `FlightHistoryScreen`, `FlightHistoryViewModel` | `app/(tabs)/history.tsx`, `src/presentation/` | **Implemented** | [003-flight-history-ui](../specs/003-flight-history-ui/spec.md) |
 | **Telemetry Simulator Engine** | `SimulatedTelemetrySource.kt` | `src/data/source/SimulatedTelemetrySource.ts` | **Implemented** | In-Tree (Dead reckoning, RTH & zero-battery landing) |
-| **Interactive Map & Snail Trail** | `DroneDashboardScreen.kt` (`GoogleMap`, `Polyline`), `DroneDashboardViewModel.kt` (`trace`) | `react-native-maps`, `src/presentation/components/TacticalMap.tsx` | **Pending Spec** | Planned `004-map-snail-trail` |
+| **Interactive Map & Snail Trail** | `DroneDashboardScreen.kt` (`GoogleMap`, `Polyline`), `DroneDashboardViewModel.kt` (`trace`) | `src/presentation/components/TacticalMap.tsx`, `useMapViewport.ts`, `tacticalProjection.ts` | **Implemented** | [004-map-snail-trail](../specs/004-map-snail-trail/spec.md) |
 | **Tactical HUD Widgets & Design** | `PulseIndicator.kt`, `TelemetryGrid.kt`, `ui/theme/` | `src/presentation/components/`, `src/theme/` | **Pending Spec** | Planned `005-tactical-hud` |
 
 ---
@@ -61,9 +61,9 @@ The native Android application (`sharmavikas212/DroneOps` on branch `master`) co
 - **Goal**: Build the UI to browse, search, inspect, and delete historical flight records saved in SQLite.
 - **Spec**: [specs/003-flight-history-ui/spec.md](../specs/003-flight-history-ui/spec.md)
 
-### Phase 4: Interactive Tactical Map & Snail Trail (Current Phase)
-- **Goal**: Recreate the native Google Map (`maps-compose`) and polyline snail trail (`uiState.trace`) in React Native using `react-native-maps` (`MapView`, `Polyline`), centering dynamically on live telemetry coordinates with tactical dark styling.
-- **Next Command**: `/speckit-specify` for `004-map-snail-trail`.
+### Phase 4: Interactive Tactical Map & Snail Trail (Completed)
+- **Goal**: Recreate the native Compose map and polyline snail trail in React Native with a 2D tactical vector HUD (`TacticalMap`, `DroneMarker`, `HomeMarker`, `SnailTrail`, `MapControls`), equirectangular projection math, auto-centering, manual pan/zoom, and 3-second watchdog caution styling.
+- **Spec**: [specs/004-map-snail-trail/spec.md](../specs/004-map-snail-trail/spec.md)
 
-### Phase 5: Tactical UI Polish & Component Library
+### Phase 5: Tactical UI Polish & Component Library (Next Phase)
 - **Goal**: Implement reusable pulse indicator badges, telemetry grid cards, and high-visibility outdoor styling matching the DroneOps visual design.

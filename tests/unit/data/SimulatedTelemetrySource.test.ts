@@ -50,6 +50,55 @@ describe('SimulatedTelemetrySource Flight Dynamics', () => {
     }
   });
 
+  it('wanders organically with non-circular dynamic flight path within Sydney geofence', () => {
+    const receivedPackets: DroneTelemetry[] = [];
+    source.subscribe((packet) => {
+      receivedPackets.push(packet);
+    });
+
+    source.connect();
+    jest.advanceTimersByTime(200);
+
+    // Collect 25 seconds of nominal flight
+    jest.advanceTimersByTime(25000);
+    expect(receivedPackets.length).toBe(26); // initial + 25 ticks
+
+    const homeLat = -33.8688;
+    const homeLon = 151.2093;
+
+    // Compute ground distance from Sydney home base for each point
+    const distances = receivedPackets.map((p) => {
+      const dLat = (p.latitude - homeLat) * 111139;
+      const dLon = (p.longitude - homeLon) * 111139 * Math.cos((homeLat * Math.PI) / 180);
+      return Math.sqrt(dLat * dLat + dLon * dLon);
+    });
+
+    // Distance should vary dynamically (not a fixed circular radius)
+    const minDistance = Math.min(...distances);
+    const maxDistance = Math.max(...distances);
+    expect(maxDistance - minDistance).toBeGreaterThan(50); // Traversed more than 50m of radial variation
+
+    // All points must stay safely within the Sydney geofence corridor (< 1200m)
+    for (const d of distances) {
+      expect(d).toBeLessThan(1200);
+    }
+
+    // Heading angles must show varied turns rather than a constant rate of rotation
+    const headings = receivedPackets.map((p) => p.headingDegrees);
+    const headingChanges = [];
+    for (let i = 1; i < headings.length; i++) {
+      let diff = (headings[i] - headings[i - 1] + 360) % 360;
+      if (diff > 180) diff -= 360;
+      headingChanges.push(diff);
+    }
+
+    // Must have both positive and negative (left and right) turns (non-circular)
+    const hasLeftTurn = headingChanges.some((dh) => dh < -1);
+    const hasRightTurn = headingChanges.some((dh) => dh > 1);
+    expect(hasLeftTurn).toBe(true);
+    expect(hasRightTurn).toBe(true);
+  });
+
   it('initiates RTH and glides down to 0m altitude and 0 m/s as battery approaches 0%', () => {
     const receivedPackets: DroneTelemetry[] = [];
     source.subscribe((packet) => {
@@ -76,7 +125,7 @@ describe('SimulatedTelemetrySource Flight Dynamics', () => {
     expect(finalPacket.batteryPercentage).toBe(0.0);
     expect(finalPacket.altitudeMeters).toBe(0.0);
     expect(finalPacket.airspeedMps).toBe(0.0);
-    expect(finalPacket.latitude).toBe(37.7749);
-    expect(finalPacket.longitude).toBe(-122.4194);
+    expect(finalPacket.latitude).toBe(-33.8688);
+    expect(finalPacket.longitude).toBe(151.2093);
   });
 });

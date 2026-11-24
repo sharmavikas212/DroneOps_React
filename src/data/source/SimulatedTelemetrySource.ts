@@ -19,16 +19,18 @@ export class SimulatedTelemetrySource implements TelemetrySource {
   private intervalTimer: ReturnType<typeof setInterval> | null = null;
   private currentState: ConnectionState = 'Disconnected';
 
-  // Base / Home coordinates (San Francisco)
-  private readonly homeLatitude: number = 37.7749;
-  private readonly homeLongitude: number = -122.4194;
+  // Base / Home coordinates (Sydney, Australia)
+  private readonly homeLatitude: number = -33.8688;
+  private readonly homeLongitude: number = 151.2093;
 
   // Flight simulation state variables
-  private latitude: number = 37.7749;
-  private longitude: number = -122.4194;
+  private latitude: number = -33.8688;
+  private longitude: number = 151.2093;
   private altitude: number = 45.0;
   private speed: number = 12.0;
   private heading: number = 45.0;
+  private targetHeading: number = 45.0;
+  private wanderInterval: number = 0;
   private battery: number = 100.0;
   private tickCount: number = 0;
 
@@ -43,6 +45,8 @@ export class SimulatedTelemetrySource implements TelemetrySource {
     this.altitude = 45.0;
     this.speed = 12.0;
     this.heading = 45.0;
+    this.targetHeading = 45.0;
+    this.wanderInterval = 0;
     this.battery = 100.0;
     this.tickCount = 0;
 
@@ -97,6 +101,11 @@ export class SimulatedTelemetrySource implements TelemetrySource {
     return this.battery;
   }
 
+  private pseudoRandom(seed: number): number {
+    const x = Math.sin(seed * 12.9898 + 78.233) * 43758.5453;
+    return x - Math.floor(x);
+  }
+
   private turnTowards(current: number, target: number, maxTurn: number): number {
     let diff = (target - current + 360) % 360;
     if (diff > 180) {
@@ -138,10 +147,42 @@ export class SimulatedTelemetrySource implements TelemetrySource {
         this.speed = 12.0;
       }
     } else if (this.battery > 20.0) {
-      // Nominal flight: smooth circular patrol orbit around survey zone
-      this.heading = (this.heading + 2.0) % 360;
-      this.altitude = Number((45.0 + Math.sin(this.tickCount * 0.1) * 2.0).toFixed(1));
-      this.speed = 12.0;
+      // Enforce geofence corridor (~1.0 km radius around Sydney base)
+      const dLatHome = this.homeLatitude - this.latitude;
+      const dLonHome =
+        (this.homeLongitude - this.longitude) *
+        Math.cos((this.homeLatitude * Math.PI) / 180);
+      const distToHomeMeters =
+        Math.sqrt(dLatHome * dLatHome + dLonHome * dLonHome) * 111139;
+
+      if (distToHomeMeters > 950) {
+        // Approaching boundary: smoothly steer back toward Sydney base
+        const bearingToHome =
+          (Math.atan2(dLonHome, dLatHome) * (180 / Math.PI) + 360) % 360;
+        const wanderOffset = (this.pseudoRandom(this.tickCount * 13) - 0.5) * 30;
+        this.targetHeading = (bearingToHome + wanderOffset + 360) % 360;
+      } else {
+        // Random organic wander: adjust course every 3 seconds to avoid circular paths
+        this.wanderInterval++;
+        if (this.wanderInterval >= 3) {
+          this.wanderInterval = 0;
+          // Organic course change between -55 and +55 degrees relative to current heading
+          const turnAngle = (this.pseudoRandom(this.tickCount * 19 + 7) - 0.5) * 110;
+          this.targetHeading = (this.heading + turnAngle + 360) % 360;
+        }
+      }
+
+      // Smoothly steer drone toward target heading at up to 6.5 degrees per second
+      this.heading = this.turnTowards(this.heading, this.targetHeading, 6.5);
+
+      // Add slight atmospheric wind drift (+/- 1.5 deg/sec)
+      const drift = (this.pseudoRandom(this.tickCount * 31 + 11) - 0.5) * 3.0;
+      this.heading = (this.heading + drift + 360) % 360;
+
+      // Organic altitude and speed variations
+      this.altitude = Number((48.0 + Math.sin(this.tickCount * 0.08) * 8.0).toFixed(1));
+      const speedVariation = (this.pseudoRandom(this.tickCount * 23) - 0.5) * 3.0;
+      this.speed = Math.max(9.0, Math.min(15.0, Number((12.0 + speedVariation).toFixed(1))));
     } else {
       // Touchdown complete (battery 0%)
       this.altitude = 0.0;
