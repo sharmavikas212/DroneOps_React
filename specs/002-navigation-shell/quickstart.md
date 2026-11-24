@@ -74,3 +74,27 @@ npm test
 - **Action**: Seed SQLite with 2 completed flight summaries and navigate to History tab.
 - **Verification**:
   - History screen renders both flight summary cards displaying duration, max altitude, average speed, and date.
+
+---
+
+## Implemented Components & Screens Reference
+
+### Navigation & Screens
+- Navigation Layout: [app/(tabs)/_layout.tsx](../../app/(tabs)/_layout.tsx)
+- Live Telemetry Dashboard: [app/(tabs)/index.tsx](../../app/(tabs)/index.tsx)
+- Mission Flight History Screen: [app/(tabs)/history.tsx](../../app/(tabs)/history.tsx)
+
+### Presentation Layer
+- Telemetry Context & Provider: [src/presentation/context/TelemetryContext.tsx](../../src/presentation/context/TelemetryContext.tsx)
+- Telemetry Context Consumer Hook: [src/presentation/hooks/useTelemetryContext.ts](../../src/presentation/hooks/useTelemetryContext.ts)
+- Flight History Presentation Hook: [src/presentation/hooks/useFlightHistory.ts](../../src/presentation/hooks/useFlightHistory.ts)
+- Tactical Tab Bar Icon: [src/presentation/components/TabBarIcon.tsx](../../src/presentation/components/TabBarIcon.tsx)
+- Tactical Empty History Banner: [src/presentation/components/EmptyHistoryState.tsx](../../src/presentation/components/EmptyHistoryState.tsx)
+- Flight Summary Card: [src/presentation/components/FlightHistoryCard.tsx](../../src/presentation/components/FlightHistoryCard.tsx)
+
+### Deterministic Test Suites
+- Tab Route Configuration Tests: [tests/unit/presentation/TabLayout.test.tsx](../../tests/unit/presentation/TabLayout.test.tsx)
+- Flight History Controller & State Tests: [tests/unit/presentation/useFlightHistory.test.ts](../../tests/unit/presentation/useFlightHistory.test.ts)
+- Telemetry Continuity & Context Tests: [tests/unit/presentation/TelemetryContext.test.tsx](../../tests/unit/presentation/TelemetryContext.test.tsx)
+- Tab Bar Appearance Tests: [tests/unit/presentation/TabBarAppearance.test.ts](../../tests/unit/presentation/TabBarAppearance.test.ts)
+

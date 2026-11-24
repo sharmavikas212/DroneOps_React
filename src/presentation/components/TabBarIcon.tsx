@@ -5,11 +5,11 @@
  */
 
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { ColorValue, StyleSheet, Text, View } from 'react-native';
 
 export interface TabBarIconProps {
   symbol: string;
-  color: string;
+  color?: ColorValue | string;
   size?: number;
   focused?: boolean;
 }
@@ -26,7 +26,7 @@ export const TabBarIcon: React.FC<TabBarIconProps> = ({
         style={[
           styles.symbolText,
           {
-            color,
+            color: color as any,
             fontSize: size,
             fontWeight: focused ? 'bold' : 'normal',
           },

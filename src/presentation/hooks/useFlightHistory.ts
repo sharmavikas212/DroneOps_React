@@ -2,63 +2,65 @@
  * Presentation Hook: useFlightHistory
  * Feature: 002-navigation-shell
  *
- * Fetches completed flight records from SQLite FlightRecordDao.
+ * Subscribes to FlightHistoryController and provides reactive flight logs state.
  * Complies with Constitution Principle II: presentation logic decoupled from screens.
  */
 
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useSyncExternalStore } from 'react';
 import { FlightRecordDao, IFlightRecordDao } from '../../data/local/FlightRecordDao';
-import {
-  FlightHistoryUiState,
-  initialFlightHistoryUiState,
-} from '../state/FlightHistoryUiState';
+import { FlightHistoryController } from '../state/FlightHistoryController';
+import { FlightHistoryUiState } from '../state/FlightHistoryUiState';
 
 export interface UseFlightHistoryOptions {
   dao?: IFlightRecordDao;
+  controller?: FlightHistoryController;
   autoLoad?: boolean;
 }
 
 export interface UseFlightHistoryReturn extends FlightHistoryUiState {
   refresh: () => Promise<void>;
+  controller: FlightHistoryController;
 }
 
 export function useFlightHistory(
   options: UseFlightHistoryOptions = {}
 ): UseFlightHistoryReturn {
   const { autoLoad = true } = options;
-  const dao = useMemo(() => options.dao ?? new FlightRecordDao(), [options.dao]);
 
-  const [state, setState] = useState<FlightHistoryUiState>(initialFlightHistoryUiState);
-
-  const fetchRecords = useCallback(async () => {
-    setState((prev) => ({ ...prev, isLoading: true, errorMessage: null }));
-    try {
-      const records = await dao.getAllFlightRecords();
-      setState({
-        records,
-        isLoading: false,
-        errorMessage: null,
-        isEmpty: records.length === 0,
-      });
-    } catch (err: unknown) {
-      const message = err instanceof Error ? err.message : 'Failed to load flight records';
-      setState({
-        records: [],
-        isLoading: false,
-        errorMessage: message,
-        isEmpty: false,
-      });
+  const controller = useMemo(() => {
+    if (options.controller) {
+      return options.controller;
     }
-  }, [dao]);
+    const dao = options.dao ?? new FlightRecordDao();
+    return new FlightHistoryController(dao);
+  }, [options.controller, options.dao]);
+
+  const state = useSyncExternalStore(
+    useCallback((onStoreChange) => controller.subscribe(onStoreChange), [controller]),
+    useCallback(() => controller.getState(), [controller])
+  );
+
+  const refresh = useCallback(async () => {
+    await controller.loadRecords();
+  }, [controller]);
 
   useEffect(() => {
     if (autoLoad) {
-      void fetchRecords();
+      void controller.loadRecords();
     }
-  }, [autoLoad, fetchRecords]);
+  }, [autoLoad, controller]);
+
+  useEffect(() => {
+    return () => {
+      if (!options.controller) {
+        controller.dispose();
+      }
+    };
+  }, [controller, options.controller]);
 
   return {
     ...state,
-    refresh: fetchRecords,
+    refresh,
+    controller,
   };
 }

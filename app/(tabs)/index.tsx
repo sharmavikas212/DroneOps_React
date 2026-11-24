@@ -3,17 +3,15 @@
  * Primary real-time HUD view rendering live metrics, link state, and coordinates.
  */
 
-import React, { useMemo } from 'react';
+import React from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { ConnectionStatusBadge } from '../../src/presentation/components/ConnectionStatusBadge';
 import { StaleDataWarningBanner } from '../../src/presentation/components/StaleDataWarningBanner';
 import { TelemetryGrid } from '../../src/presentation/components/TelemetryGrid';
-import { useTelemetryDashboard } from '../../src/presentation/hooks/useTelemetryDashboard';
-import { SimulatedTelemetrySource } from '../../src/data/source/SimulatedTelemetrySource';
+import { useTelemetryContext } from '../../src/presentation/hooks/useTelemetryContext';
 import { colors } from '../../src/theme/colors';
 
 export default function DroneDashboardScreen() {
-  const telemetrySource = useMemo(() => new SimulatedTelemetrySource(), []);
   const {
     connectionState,
     telemetry,
@@ -22,7 +20,7 @@ export default function DroneDashboardScreen() {
     errorMessage,
     connect,
     disconnect,
-  } = useTelemetryDashboard({ source: telemetrySource });
+  } = useTelemetryContext();
 
   const isConnected = connectionState === 'Connected';
   const isConnecting = connectionState === 'Connecting';

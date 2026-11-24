@@ -34,9 +34,9 @@ description: "Task list for Navigation Shell & Tab Routing (Dashboard & History)
 
 ⚠️ **CRITICAL**: No user story work can begin until this foundational phase is complete.
 
-- [ ] T003 Define `FlightHistoryUiState` models and initial state in `src/presentation/state/FlightHistoryUiState.ts` citing constraints from `data-model.md` for `FlightHistoryUiState.records`, `FlightHistoryUiState.isLoading`, `FlightHistoryUiState.errorMessage`, and `FlightHistoryUiState.isEmpty` conforming to `contracts/flight-history.contract.ts`
-- [ ] T004 [P] Implement presentation hook `useFlightHistory` in `src/presentation/hooks/useFlightHistory.ts` fetching completed flight summaries from `FlightRecordDao` with empty state detection
-- [ ] T005 [P] Implement tactical empty state banner component `EmptyHistoryState` in `src/presentation/components/EmptyHistoryState.tsx` displaying `"No flight logs recorded"` per FR-008
+- [X] T003 Define `FlightHistoryUiState` models and initial state in `src/presentation/state/FlightHistoryUiState.ts` citing constraints from `data-model.md` for `FlightHistoryUiState.records`, `FlightHistoryUiState.isLoading`, `FlightHistoryUiState.errorMessage`, and `FlightHistoryUiState.isEmpty` conforming to `contracts/flight-history.contract.ts`
+- [X] T004 [P] Implement presentation hook `useFlightHistory` in `src/presentation/hooks/useFlightHistory.ts` fetching completed flight summaries from `FlightRecordDao` with empty state detection
+- [X] T005 [P] Implement tactical empty state banner component `EmptyHistoryState` in `src/presentation/components/EmptyHistoryState.tsx` displaying `"No flight logs recorded"` per FR-008
 
 **Checkpoint**: Foundation ready — user story implementation can now begin.
 
@@ -52,13 +52,13 @@ description: "Task list for Navigation Shell & Tab Routing (Dashboard & History)
 
 > **NOTE: Write these tests FIRST and ensure they FAIL before implementing screen and layout wiring.**
 
-- [ ] T006 [P] [US1] Unit test for `useFlightHistory` hook states (loading, empty state, populated summaries, error) in `tests/unit/presentation/useFlightHistory.test.ts` using `FakeFlightRecordDao`
-- [ ] T007 [P] [US1] Unit test for tab route configuration and cold start default landing in `tests/unit/presentation/TabLayout.test.tsx`
+- [X] T006 [P] [US1] Unit test for `useFlightHistory` hook states (loading, empty state, populated summaries, error) in `tests/unit/presentation/useFlightHistory.test.ts` using `FakeFlightRecordDao`
+- [X] T007 [P] [US1] Unit test for tab route configuration and cold start default landing in `tests/unit/presentation/TabLayout.test.tsx`
 
 ### Implementation for User Story 1
 
-- [ ] T008 [US1] Implement primary History screen view in `app/(tabs)/history.tsx` rendering flight records or `EmptyHistoryState` via `useFlightHistory` with zero business logic per Constitution Principle II
-- [ ] T009 [US1] Configure Expo Router `<Tabs>` navigator in `app/(tabs)/_layout.tsx` connecting `index.tsx` (Dashboard) and `history.tsx` (History) with `initialRouteName="index"` citing constraints from `data-model.md` for `NavigationShellState.activeRoute`
+- [X] T008 [US1] Implement primary History screen view in `app/(tabs)/history.tsx` rendering flight records or `EmptyHistoryState` via `useFlightHistory` with zero business logic per Constitution Principle II
+- [X] T009 [US1] Configure Expo Router `<Tabs>` navigator in `app/(tabs)/_layout.tsx` connecting `index.tsx` (Dashboard) and `history.tsx` (History) with `initialRouteName="index"` citing constraints from `data-model.md` for `NavigationShellState.activeRoute`
 
 **Checkpoint**: At this point, User Story 1 is fully functional and testable independently as an MVP.
 
@@ -74,14 +74,14 @@ description: "Task list for Navigation Shell & Tab Routing (Dashboard & History)
 
 > **NOTE: Write these tests FIRST and ensure they FAIL before implementing context wiring.**
 
-- [ ] T010 [P] [US2] Unit test for `TelemetryContext` and background stream persistence across screen mounts in `tests/unit/presentation/TelemetryContext.test.tsx` using `jest.useFakeTimers()` and `FakeTelemetrySource`
+- [X] T010 [P] [US2] Unit test for `TelemetryContext` and background stream persistence across screen mounts in `tests/unit/presentation/TelemetryContext.test.tsx` using `jest.useFakeTimers()` and `FakeTelemetrySource`
 
 ### Implementation for User Story 2
 
-- [ ] T011 [US2] Implement `TelemetryContext` and `TelemetryProvider` in `src/presentation/context/TelemetryContext.tsx` citing constraints from `data-model.md` for `TelemetryContextValue.connectionState`, `TelemetryContextValue.telemetry`, `TelemetryContextValue.isStale`, `TelemetryContextValue.breadcrumbs`, and `TelemetryContextValue.errorMessage` conforming to `contracts/telemetry-context.contract.ts`
-- [ ] T012 [P] [US2] Implement consumer hook `useTelemetryContext` in `src/presentation/hooks/useTelemetryContext.ts` exposing shared telemetry state and control actions
-- [ ] T013 [US2] Wrap `(tabs)/_layout.tsx` with `TelemetryProvider` to ensure single persistent controller lifecycle across tab transitions citing constraints from `data-model.md` for `NavigationShellState.isBackgroundStreamingActive`
-- [ ] T014 [US2] Update `app/(tabs)/index.tsx` to consume `useTelemetryContext` instead of locally owning controller lifecycle, preserving background monitoring across navigation
+- [X] T011 [US2] Implement `TelemetryContext` and `TelemetryProvider` in `src/presentation/context/TelemetryContext.tsx` citing constraints from `data-model.md` for `TelemetryContextValue.connectionState`, `TelemetryContextValue.telemetry`, `TelemetryContextValue.isStale`, `TelemetryContextValue.breadcrumbs`, and `TelemetryContextValue.errorMessage` conforming to `contracts/telemetry-context.contract.ts`
+- [X] T012 [P] [US2] Implement consumer hook `useTelemetryContext` in `src/presentation/hooks/useTelemetryContext.ts` exposing shared telemetry state and control actions
+- [X] T013 [US2] Wrap `(tabs)/_layout.tsx` with `TelemetryProvider` to ensure single persistent controller lifecycle across tab transitions citing constraints from `data-model.md` for `NavigationShellState.isBackgroundStreamingActive`
+- [X] T014 [US2] Update `app/(tabs)/index.tsx` to consume `useTelemetryContext` instead of locally owning controller lifecycle, preserving background monitoring across navigation
 
 **Checkpoint**: User Stories 1 AND 2 work together independently; switching tabs keeps telemetry stream, watchdog, and recording active in the background.
 
@@ -97,13 +97,13 @@ description: "Task list for Navigation Shell & Tab Routing (Dashboard & History)
 
 > **NOTE: Write these tests FIRST and ensure they FAIL before implementing appearance updates.**
 
-- [ ] T015 [P] [US3] Unit test for tab bar appearance options and safe area styling in `tests/unit/presentation/TabBarAppearance.test.ts`
+- [X] T015 [P] [US3] Unit test for tab bar appearance options and safe area styling in `tests/unit/presentation/TabBarAppearance.test.ts`
 
 ### Implementation for User Story 3
 
-- [ ] T016 [US3] Configure tab bar styling in `app/(tabs)/_layout.tsx` applying `colors.surface`, `colors.border`, `colors.metric.cyan`, and safe area bottom insets citing constraints from `data-model.md` for `NavigationShellState.safeAreaInsets`
-- [ ] T017 [US3] Add tactical flight summary item card component `FlightHistoryCard` in `src/presentation/components/FlightHistoryCard.tsx` displaying duration, max altitude, average speed, and date in high-contrast utilitarian styling
-- [ ] T018 [US3] Integrate `FlightHistoryCard` list rendering with pull-to-refresh action in `app/(tabs)/history.tsx`
+- [X] T016 [US3] Configure tab bar styling in `app/(tabs)/_layout.tsx` applying `colors.surface`, `colors.border`, `colors.metric.cyan`, and safe area bottom insets citing constraints from `data-model.md` for `NavigationShellState.safeAreaInsets`
+- [X] T017 [US3] Add tactical flight summary item card component `FlightHistoryCard` in `src/presentation/components/FlightHistoryCard.tsx` displaying duration, max altitude, average speed, and date in high-contrast utilitarian styling
+- [X] T018 [US3] Integrate `FlightHistoryCard` list rendering with pull-to-refresh action in `app/(tabs)/history.tsx`
 
 **Checkpoint**: All three user stories are complete, independently verifiable, and aesthetically unified with the Dark Mode First tactical theme.
 
@@ -113,9 +113,9 @@ description: "Task list for Navigation Shell & Tab Routing (Dashboard & History)
 
 **Purpose**: End-to-end verification, type checking, test suite execution, and documentation synchronization.
 
-- [ ] T019 [P] Update navigation documentation and component links in `specs/002-navigation-shell/quickstart.md`
-- [ ] T020 Run static type checking verification (`npm run typecheck`) across all modified screens and components
-- [ ] T021 Run complete automated Jest test suite (`npm test`) ensuring 100% pass rate with deterministic fake timers
+- [X] T019 [P] Update navigation documentation and component links in `specs/002-navigation-shell/quickstart.md`
+- [X] T020 Run static type checking verification (`npm run typecheck`) across all modified screens and components
+- [X] T021 Run complete automated Jest test suite (`npm test`) ensuring 100% pass rate with deterministic fake timers
 
 ---
 
