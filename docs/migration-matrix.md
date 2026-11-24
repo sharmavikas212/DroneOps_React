@@ -37,9 +37,9 @@ The native Android application (`sharmavikas212/DroneOps` on branch `master`) co
 
 | Module | Native Android Equivalent | React Native Target Layer | Status | SpecKit Reference |
 |---|---|---|---|---|
-| **Telemetry HUD & Watchdog** | `DroneDashboardScreen`, `DroneDashboardViewModel` | `app/(tabs)/index.tsx`, `src/presentation/` | **Specified** | [001-telemetry-dashboard](../specs/001-telemetry-dashboard/spec.md) |
-| **Flight Summary Persistence** | `DroneDatabase`, `FlightRecordDao`, `FlightRecordEntity` | `src/data/local/` (`expo-sqlite`) | **Specified** | [001-telemetry-dashboard](../specs/001-telemetry-dashboard/spec.md) |
-| **Multi-Screen Navigation Shell** | `MainActivity.kt` (Compose NavHost) | `app/_layout.tsx` (Expo Router Tabs/Stack) | **Pending Spec** | Planned `002-navigation-shell` |
+| **Telemetry HUD & Watchdog** | `DroneDashboardScreen`, `DroneDashboardViewModel` | `app/(tabs)/index.tsx`, `src/presentation/` | **Implemented** | [001-telemetry-dashboard](../specs/001-telemetry-dashboard/spec.md) |
+| **Flight Summary Persistence** | `DroneDatabase`, `FlightRecordDao`, `FlightRecordEntity` | `src/data/local/` (`expo-sqlite`) | **Implemented** | [001-telemetry-dashboard](../specs/001-telemetry-dashboard/spec.md) |
+| **Multi-Screen Navigation Shell** | `MainActivity.kt` (Compose NavHost) | `app/_layout.tsx` (Expo Router Tabs/Stack) | **Implemented** | [002-navigation-shell](../specs/002-navigation-shell/spec.md) |
 | **Flight History Screen & UI** | `FlightHistoryScreen`, `FlightHistoryViewModel` | `app/(tabs)/history.tsx`, `src/presentation/` | **Pending Spec** | Planned `003-flight-history-ui` |
 | **Telemetry Simulator Engine** | `SimulatedTelemetrySource.kt` | `src/data/source/SimulatedTelemetrySource.ts` | **Pending Spec** | Planned `004-telemetry-simulator` |
 | **Tactical HUD Widgets & Design** | `PulseIndicator.kt`, `TelemetryGrid.kt`, `ui/theme/` | `src/presentation/components/`, `src/theme/` | **Pending Spec** | Planned `005-tactical-hud` |
@@ -48,16 +48,15 @@ The native Android application (`sharmavikas212/DroneOps` on branch `master`) co
 
 ## 3. Phased Roadmap
 
-### Phase 1: Core Telemetry Dashboard & Database Layer (Current Phase)
+### Phase 1: Core Telemetry Dashboard & Database Layer (Completed)
 - **Goal**: Implement the core state machine, 3-second watchdog timer, and `expo-sqlite` summary storage.
 - **Spec**: [specs/001-telemetry-dashboard/spec.md](../specs/001-telemetry-dashboard/spec.md)
-- **Next Command**: `/speckit-plan` followed by `/speckit-tasks` and `/speckit-implement`.
 
-### Phase 2: Expo Router Navigation Shell
+### Phase 2: Expo Router Navigation Shell (Completed)
 - **Goal**: Establish the app structure using Expo Router with tab-based navigation (`Dashboard` and `History`).
-- **Next Command**: `/speckit-specify` for `002-navigation-shell`.
+- **Spec**: [specs/002-navigation-shell/spec.md](../specs/002-navigation-shell/spec.md)
 
-### Phase 3: Flight History Screen & UI
+### Phase 3: Flight History Screen & UI (Current Phase)
 - **Goal**: Build the UI to browse, search, inspect, and delete historical flight records saved in SQLite.
 - **Next Command**: `/speckit-specify` for `003-flight-history-ui`.
 
