@@ -23,8 +23,8 @@ description: "Task list for Navigation Shell & Tab Routing (Dashboard & History)
 
 **Purpose**: Navigation route configuration, iconography, and baseline navigation shell constants.
 
-- [ ] T001 Define navigation route constants and tab options in `src/presentation/navigation/navigationRoutes.ts` citing constraints from `data-model.md` for `NavigationRoute.name`, `NavigationRoute.title`, `NavigationRoute.iconSymbol`, `NavigationRoute.isDefault`, and `NavigationRoute.href` conforming to `contracts/navigation-shell.contract.ts`
-- [ ] T002 [P] Implement tactical utilitarian tab icon glyph component `TabBarIcon` in `src/presentation/components/TabBarIcon.tsx` rendering high-contrast tactical symbols (`⌖` and `▤`) styled with active/inactive tints
+- [X] T001 Define navigation route constants and tab options in `src/presentation/navigation/navigationRoutes.ts` citing constraints from `data-model.md` for `NavigationRoute.name`, `NavigationRoute.title`, `NavigationRoute.iconSymbol`, `NavigationRoute.isDefault`, and `NavigationRoute.href` conforming to `contracts/navigation-shell.contract.ts`
+- [X] T002 [P] Implement tactical utilitarian tab icon glyph component `TabBarIcon` in `src/presentation/components/TabBarIcon.tsx` rendering high-contrast tactical symbols (`⌖` and `▤`) styled with active/inactive tints
 
 ---
 
