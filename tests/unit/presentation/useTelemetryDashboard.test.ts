@@ -124,4 +124,24 @@ describe('TelemetryDashboardController - User Story 1 (Real-Time Telemetry)', ()
     expect(repoController.getState().breadcrumbs).toEqual([]);
     repoController.dispose();
   });
+
+  it('calling disconnect() on controller stops stream and persists summary to DAO', async () => {
+    const { FakeFlightRecordDao } = await import('../../fakes/FakeFlightRecordDao');
+    const { DroneTelemetryRepository } = await import('../../../src/data/repository/DroneTelemetryRepository');
+
+    const fakeDao = new FakeFlightRecordDao();
+    const repo = new DroneTelemetryRepository(source, fakeDao);
+    const repoController = new TelemetryDashboardController(source, repo);
+
+    repoController.connect();
+
+    source.emitPacket(samplePacket);
+    expect(repoController.getState().breadcrumbs).toHaveLength(1);
+
+    await repoController.disconnect();
+
+    expect(repoController.getState().breadcrumbs).toEqual([]);
+    expect(fakeDao.getRecordCount()).toBe(1);
+    repoController.dispose();
+  });
 });

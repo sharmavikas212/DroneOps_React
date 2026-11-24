@@ -115,7 +115,7 @@ export class DroneTelemetryRepository {
 
     // Check for terminal battery depletion (0% battery concludes flight)
     if (packet.batteryPercentage <= 0) {
-      this.terminateSession().catch((err) => {
+      this.stopStream().catch((err) => {
         console.error('Error auto-persisting flight upon battery depletion:', err);
       });
     }

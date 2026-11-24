@@ -23,8 +23,8 @@ description: "Task list for Flight History UI (Browse, Search, Inspect Details, 
 
 **Purpose**: Presentation state models, deletion target interfaces, and base types for flight history management.
 
-- [ ] T001 Expand `FlightHistoryUiState` interface and initial state in `src/presentation/state/FlightHistoryUiState.ts` citing constraints from `data-model.md` for `FlightHistoryUiState.searchQuery`, `FlightHistoryUiState.filteredRecords`, `FlightHistoryUiState.selectedRecord`, `FlightHistoryUiState.isDeleting`, `FlightHistoryUiState.isEmpty`, and `FlightHistoryUiState.isSearchEmpty` conforming to `contracts/flight-history-controller.contract.ts`
-- [ ] T002 [P] Define `DeleteTarget` interface in `src/presentation/state/FlightHistoryUiState.ts` citing constraints from `data-model.md` for `DeleteTarget.type`, `DeleteTarget.recordId`, `DeleteTarget.recordSummary`, and `DeleteTarget.totalCount`
+- [X] T001 Expand `FlightHistoryUiState` interface and initial state in `src/presentation/state/FlightHistoryUiState.ts` citing constraints from `data-model.md` for `FlightHistoryUiState.searchQuery`, `FlightHistoryUiState.filteredRecords`, `FlightHistoryUiState.selectedRecord`, `FlightHistoryUiState.isDeleting`, `FlightHistoryUiState.isEmpty`, and `FlightHistoryUiState.isSearchEmpty` conforming to `contracts/flight-history-controller.contract.ts`
+- [X] T002 [P] Define `DeleteTarget` interface in `src/presentation/state/FlightHistoryUiState.ts` citing constraints from `data-model.md` for `DeleteTarget.type`, `DeleteTarget.recordId`, `DeleteTarget.recordSummary`, and `DeleteTarget.totalCount`
 
 ---
 
@@ -34,9 +34,9 @@ description: "Task list for Flight History UI (Browse, Search, Inspect Details, 
 
 ⚠️ **CRITICAL**: No user story UI work can begin until this foundational phase is complete.
 
-- [ ] T003 [P] Create unit test suite for `FlightHistoryController` in `tests/unit/presentation/FlightHistoryController.test.ts` testing initial state, record loading, search query filtering, detail selection, single deletion, bulk clearing, and error handling using `FakeFlightRecordDao`
-- [ ] T004 Enhance `FlightHistoryController` in `src/presentation/state/FlightHistoryController.ts` implementing `setSearchQuery`, `clearSearchQuery`, `selectRecord`, `deleteRecord`, and `clearAllRecords` methods citing constraints from `data-model.md` for `FlightHistoryUiState.records`, `FlightHistoryUiState.isLoading`, and `FlightHistoryUiState.errorMessage` conforming to `contracts/flight-history-controller.contract.ts`
-- [ ] T005 Update presentation hook `useFlightHistory` in `src/presentation/hooks/useFlightHistory.ts` exposing reactive state (`searchQuery`, `filteredRecords`, `selectedRecord`, `isDeleting`, `isSearchEmpty`) and handlers (`setSearchQuery`, `clearSearchQuery`, `selectRecord`, `deleteRecord`, `clearAllRecords`) conforming to `contracts/flight-history-controller.contract.ts`
+- [X] T003 [P] Create unit test suite for `FlightHistoryController` in `tests/unit/presentation/FlightHistoryController.test.ts` testing initial state, record loading, search query filtering, detail selection, single deletion, bulk clearing, and error handling using `FakeFlightRecordDao`
+- [X] T004 Enhance `FlightHistoryController` in `src/presentation/state/FlightHistoryController.ts` implementing `setSearchQuery`, `clearSearchQuery`, `selectRecord`, `deleteRecord`, and `clearAllRecords` methods citing constraints from `data-model.md` for `FlightHistoryUiState.records`, `FlightHistoryUiState.isLoading`, and `FlightHistoryUiState.errorMessage` conforming to `contracts/flight-history-controller.contract.ts`
+- [X] T005 Update presentation hook `useFlightHistory` in `src/presentation/hooks/useFlightHistory.ts` exposing reactive state (`searchQuery`, `filteredRecords`, `selectedRecord`, `isDeleting`, `isSearchEmpty`) and handlers (`setSearchQuery`, `clearSearchQuery`, `selectRecord`, `deleteRecord`, `clearAllRecords`) conforming to `contracts/flight-history-controller.contract.ts`
 
 **Checkpoint**: Foundation ready — user story implementation can now begin.
 
@@ -52,12 +52,12 @@ description: "Task list for Flight History UI (Browse, Search, Inspect Details, 
 
 > **NOTE: Write these tests FIRST and ensure they FAIL before implementing component updates.**
 
-- [ ] T006 [P] [US1] Unit test for `FlightHistoryCard` metric formatting and battery status colors in `tests/unit/presentation/FlightHistoryCard.test.tsx` citing constraints from `data-model.md` for `FlightRecord.startTimeMillis`, `FlightRecord.durationSeconds`, `FlightRecord.maxAltitudeMeters`, `FlightRecord.averageSpeedMps`, and `FlightRecord.minBatteryPercentage`
+- [X] T006 [P] [US1] Unit test for `FlightHistoryCard` metric formatting and battery status colors in `tests/unit/presentation/FlightHistoryCard.test.tsx` citing constraints from `data-model.md` for `FlightRecord.startTimeMillis`, `FlightRecord.durationSeconds`, `FlightRecord.maxAltitudeMeters`, `FlightRecord.averageSpeedMps`, and `FlightRecord.minBatteryPercentage`
 
 ### Implementation for User Story 1
 
-- [ ] T007 [US1] Update `FlightHistoryCard` in `src/presentation/components/FlightHistoryCard.tsx` adding `onPress` and `onDeletePress` props and touchable interaction citing constraints from `data-model.md` for `FlightRecord.startTimeMillis`, `FlightRecord.durationSeconds`, `FlightRecord.maxAltitudeMeters`, `FlightRecord.averageSpeedMps`, and `FlightRecord.minBatteryPercentage` conforming to `contracts/flight-history-components.contract.ts`
-- [ ] T008 [US1] Update `app/(tabs)/history.tsx` to render reverse-chronological flight summaries with pull-to-refresh, count badge, and error alert using `useFlightHistory` with zero business logic per Constitution Principle II
+- [X] T007 [US1] Update `FlightHistoryCard` in `src/presentation/components/FlightHistoryCard.tsx` adding `onPress` and `onDeletePress` props and touchable interaction citing constraints from `data-model.md` for `FlightRecord.startTimeMillis`, `FlightRecord.durationSeconds`, `FlightRecord.maxAltitudeMeters`, `FlightRecord.averageSpeedMps`, and `FlightRecord.minBatteryPercentage` conforming to `contracts/flight-history-components.contract.ts`
+- [X] T008 [US1] Update `app/(tabs)/history.tsx` to render reverse-chronological flight summaries with pull-to-refresh, count badge, and error alert using `useFlightHistory` with zero business logic per Constitution Principle II
 
 **Checkpoint**: User Story 1 is fully functional and testable independently as an MVP.
 
@@ -73,12 +73,12 @@ description: "Task list for Flight History UI (Browse, Search, Inspect Details, 
 
 > **NOTE: Write these tests FIRST and ensure they FAIL before implementing search components.**
 
-- [ ] T009 [P] [US2] Unit test for `FlightSearchBar` query input, clear button, and result count badge in `tests/unit/presentation/FlightSearchBar.test.tsx`
+- [X] T009 [P] [US2] Unit test for `FlightSearchBar` query input, clear button, and result count badge in `tests/unit/presentation/FlightSearchBar.test.tsx`
 
 ### Implementation for User Story 2
 
-- [ ] T010 [P] [US2] Implement tactical `FlightSearchBar` component in `src/presentation/components/FlightSearchBar.tsx` with search icon, text input, clear button, and result count badge conforming to `contracts/flight-history-components.contract.ts`
-- [ ] T011 [US2] Integrate `FlightSearchBar` and "No matching flight records" tactical state with quick-clear action into `app/(tabs)/history.tsx` wired to `searchQuery`, `filteredRecords`, `setSearchQuery`, and `clearSearchQuery` from `useFlightHistory`
+- [X] T010 [P] [US2] Implement tactical `FlightSearchBar` component in `src/presentation/components/FlightSearchBar.tsx` with search icon, text input, clear button, and result count badge conforming to `contracts/flight-history-components.contract.ts`
+- [X] T011 [US2] Integrate `FlightSearchBar` and "No matching flight records" tactical state with quick-clear action into `app/(tabs)/history.tsx` wired to `searchQuery`, `filteredRecords`, `setSearchQuery`, and `clearSearchQuery` from `useFlightHistory`
 
 **Checkpoint**: User Stories 1 AND 2 work together independently.
 
@@ -94,12 +94,12 @@ description: "Task list for Flight History UI (Browse, Search, Inspect Details, 
 
 > **NOTE: Write these tests FIRST and ensure they FAIL before implementing detail modal.**
 
-- [ ] T012 [P] [US3] Unit test for `FlightDetailModal` metric rendering, timestamp formatting, and dismiss/delete callbacks in `tests/unit/presentation/FlightDetailModal.test.tsx` citing constraints from `data-model.md` for `FlightRecord.id` and `FlightRecord.endTimeMillis`
+- [X] T012 [P] [US3] Unit test for `FlightDetailModal` metric rendering, timestamp formatting, and dismiss/delete callbacks in `tests/unit/presentation/FlightDetailModal.test.tsx` citing constraints from `data-model.md` for `FlightRecord.id` and `FlightRecord.endTimeMillis`
 
 ### Implementation for User Story 3
 
-- [ ] T013 [P] [US3] Implement `FlightDetailModal` component in `src/presentation/components/FlightDetailModal.tsx` displaying complete mission metadata, dismiss button, and delete action button citing constraints from `data-model.md` for `FlightRecord.id` and `FlightRecord.endTimeMillis` conforming to `contracts/flight-history-components.contract.ts`
-- [ ] T014 [US3] Integrate `FlightDetailModal` into `app/(tabs)/history.tsx` wired to `selectedRecord` and `selectRecord` from `useFlightHistory`
+- [X] T013 [P] [US3] Implement `FlightDetailModal` component in `src/presentation/components/FlightDetailModal.tsx` displaying complete mission metadata, dismiss button, and delete action button citing constraints from `data-model.md` for `FlightRecord.id` and `FlightRecord.endTimeMillis` conforming to `contracts/flight-history-components.contract.ts`
+- [X] T014 [US3] Integrate `FlightDetailModal` into `app/(tabs)/history.tsx` wired to `selectedRecord` and `selectRecord` from `useFlightHistory`
 
 **Checkpoint**: User Stories 1, 2, AND 3 work together independently.
 
@@ -115,12 +115,12 @@ description: "Task list for Flight History UI (Browse, Search, Inspect Details, 
 
 > **NOTE: Write these tests FIRST and ensure they FAIL before implementing confirmation dialog.**
 
-- [ ] T015 [P] [US4] Unit test for `TacticalConfirmDialog` danger styling, confirmation dispatch, cancellation, and loading state in `tests/unit/presentation/TacticalConfirmDialog.test.tsx`
+- [X] T015 [P] [US4] Unit test for `TacticalConfirmDialog` danger styling, confirmation dispatch, cancellation, and loading state in `tests/unit/presentation/TacticalConfirmDialog.test.tsx`
 
 ### Implementation for User Story 4
 
-- [ ] T016 [P] [US4] Implement `TacticalConfirmDialog` component in `src/presentation/components/TacticalConfirmDialog.tsx` with tactical danger styling, warning message, confirm and cancel buttons conforming to `contracts/flight-history-components.contract.ts`
-- [ ] T017 [US4] Wire single-record deletion confirmation into `app/(tabs)/history.tsx` connecting card delete and detail modal delete actions to `deleteRecord` from `useFlightHistory`
+- [X] T016 [P] [US4] Implement `TacticalConfirmDialog` component in `src/presentation/components/TacticalConfirmDialog.tsx` with tactical danger styling, warning message, confirm and cancel buttons conforming to `contracts/flight-history-components.contract.ts`
+- [X] T017 [US4] Wire single-record deletion confirmation into `app/(tabs)/history.tsx` connecting card delete and detail modal delete actions to `deleteRecord` from `useFlightHistory`
 
 **Checkpoint**: User Stories 1, 2, 3, AND 4 work together independently.
 
@@ -136,11 +136,11 @@ description: "Task list for Flight History UI (Browse, Search, Inspect Details, 
 
 > **NOTE: Write these tests FIRST and ensure they FAIL before implementing bulk clear header.**
 
-- [ ] T018 [P] [US5] Unit test for bulk clear confirmation, state purge, and transition to empty state in `tests/unit/presentation/FlightHistoryBulkClear.test.tsx`
+- [X] T018 [P] [US5] Unit test for bulk clear confirmation, state purge, and transition to empty state in `tests/unit/presentation/FlightHistoryBulkClear.test.tsx`
 
 ### Implementation for User Story 5
 
-- [ ] T019 [US5] Add "Clear All" action button to `app/(tabs)/history.tsx` header wired to `TacticalConfirmDialog` and `clearAllRecords` from `useFlightHistory`
+- [X] T019 [US5] Add "Clear All" action button to `app/(tabs)/history.tsx` header wired to `TacticalConfirmDialog` and `clearAllRecords` from `useFlightHistory`
 
 **Checkpoint**: All 5 user stories are complete and functional.
 
@@ -150,9 +150,9 @@ description: "Task list for Flight History UI (Browse, Search, Inspect Details, 
 
 **Purpose**: Static typing verification, automated test regression, and quickstart scenario validation across all stories.
 
-- [ ] T020 [P] Run static typecheck (`npm run typecheck`) and verify zero diagnostic errors across all components, hooks, and tests
-- [ ] T021 [P] Run full Jest test suite (`npm test`) ensuring 100% deterministic test pass rate
-- [ ] T022 Execute end-to-end quickstart validation scenarios from `specs/003-flight-history-ui/quickstart.md`
+- [X] T020 [P] Run static typecheck (`npm run typecheck`) and verify zero diagnostic errors across all components, hooks, and tests
+- [X] T021 [P] Run full Jest test suite (`npm test`) ensuring 100% deterministic test pass rate
+- [X] T022 Execute end-to-end quickstart validation scenarios from `specs/003-flight-history-ui/quickstart.md`
 
 ---
 

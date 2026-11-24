@@ -16,6 +16,7 @@ export class TelemetryDashboardController {
   private listeners: Set<(state: DashboardUiState) => void> = new Set();
   private watchdogTimer: ReturnType<typeof setTimeout> | null = null;
   private sourceUnsubscribe: Unsubscribe | null = null;
+  private connUnsubscribe: Unsubscribe | null = null;
   private terminationUnsubscribe: Unsubscribe | null = null;
 
   constructor(
@@ -26,11 +27,21 @@ export class TelemetryDashboardController {
       this.sourceUnsubscribe = this.telemetrySource.subscribe((packet) => {
         this.handleIncomingPacket(packet);
       });
+      if (this.telemetrySource.onConnectionChange) {
+        this.connUnsubscribe = this.telemetrySource.onConnectionChange((connState) => {
+          if (connState === 'Disconnected') {
+            this.clearWatchdogTimer();
+            this.updateState({ connectionState: 'Disconnected' });
+          }
+        });
+      }
     }
 
     if (this.repository) {
       this.terminationUnsubscribe = this.repository.onFlightTerminated(() => {
         this.clearBreadcrumbs();
+        this.clearWatchdogTimer();
+        this.updateState({ connectionState: 'Disconnected' });
       });
     }
   }
@@ -52,7 +63,9 @@ export class TelemetryDashboardController {
       errorMessage: null,
     });
 
-    if (this.telemetrySource) {
+    if (this.repository) {
+      this.repository.startStream();
+    } else if (this.telemetrySource) {
       this.telemetrySource.connect();
     }
 
@@ -60,9 +73,11 @@ export class TelemetryDashboardController {
     this.armWatchdogTimer();
   }
 
-  disconnect(): void {
+  async disconnect(): Promise<void> {
     this.clearWatchdogTimer();
-    if (this.telemetrySource) {
+    if (this.repository) {
+      await this.repository.stopStream();
+    } else if (this.telemetrySource) {
       this.telemetrySource.disconnect();
     }
     this.updateState({
@@ -140,6 +155,10 @@ export class TelemetryDashboardController {
     if (this.sourceUnsubscribe) {
       this.sourceUnsubscribe();
       this.sourceUnsubscribe = null;
+    }
+    if (this.connUnsubscribe) {
+      this.connUnsubscribe();
+      this.connUnsubscribe = null;
     }
     if (this.terminationUnsubscribe) {
       this.terminationUnsubscribe();

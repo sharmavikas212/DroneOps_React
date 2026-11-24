@@ -21,6 +21,7 @@ import React, {
   useMemo,
   useSyncExternalStore,
 } from 'react';
+import { FlightRecordDao } from '../../data/local/FlightRecordDao';
 import { DroneTelemetryRepository } from '../../data/repository/DroneTelemetryRepository';
 import { SimulatedTelemetrySource } from '../../data/source/SimulatedTelemetrySource';
 import { TelemetrySource } from '../../data/source/TelemetrySource';
@@ -29,7 +30,7 @@ import { TelemetryDashboardController } from '../state/TelemetryDashboardControl
 
 export interface TelemetryContextValue extends DashboardUiState {
   connect: () => void;
-  disconnect: () => void;
+  disconnect: () => Promise<void> | void;
   clearBreadcrumbs: () => void;
   controller: TelemetryDashboardController;
 }
@@ -54,7 +55,10 @@ export const TelemetryProvider: React.FC<TelemetryProviderProps> = ({
       return externalController;
     }
     const telemetrySource = source ?? new SimulatedTelemetrySource();
-    return new TelemetryDashboardController(telemetrySource, repository);
+    const flightRecordDao = new FlightRecordDao();
+    const telemetryRepo =
+      repository ?? new DroneTelemetryRepository(telemetrySource, flightRecordDao);
+    return new TelemetryDashboardController(telemetrySource, telemetryRepo);
   }, [externalController, source, repository]);
 
   const state = useSyncExternalStore(

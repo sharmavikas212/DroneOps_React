@@ -4,6 +4,8 @@ module.exports = {
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json'],
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1',
+    '^react-native$': '<rootDir>/tests/__mocks__/react-native.ts',
+    '^expo-sqlite$': '<rootDir>/tests/__mocks__/expo-sqlite.ts',
   },
   transform: {
     '^.+\\.(ts|tsx)$': ['ts-jest', {

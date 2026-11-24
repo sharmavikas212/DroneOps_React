@@ -2,18 +2,31 @@
  * FlightHistoryCard Component
  * Utilitarian tactical card rendering a completed flight summary record.
  * Displays duration, peak altitude, average speed, and minimum battery with semantic status colors.
+ * Supports tap-to-inspect and delete callbacks per contracts/flight-history-components.contract.ts
  */
 
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { FlightRecord } from '../../data/local/models/FlightRecordEntity';
 import { colors } from '../../theme/colors';
 
 export interface FlightHistoryCardProps {
+  /** Flight record to display */
   record: FlightRecord;
+  /** Callback when card is pressed to inspect details */
+  onPress?: (record: FlightRecord) => void;
+  /** Callback when delete icon button on card is pressed */
+  onDeletePress?: (record: FlightRecord) => void;
+  /** Test identifier */
+  testID?: string;
 }
 
-export const FlightHistoryCard: React.FC<FlightHistoryCardProps> = ({ record }) => {
+export const FlightHistoryCard: React.FC<FlightHistoryCardProps> = ({
+  record,
+  onPress,
+  onDeletePress,
+  testID,
+}) => {
   const formattedDate = new Date(record.startTimeMillis).toLocaleString(undefined, {
     month: 'short',
     day: 'numeric',
@@ -33,13 +46,46 @@ export const FlightHistoryCard: React.FC<FlightHistoryCardProps> = ({ record }) 
       ? colors.metric.amber
       : colors.metric.red;
 
+  const cardTestId = testID ?? `flight-card-${record.id}`;
+
+  const CardWrapper: React.ElementType = onPress ? TouchableOpacity : View;
+  const wrapperProps = onPress
+    ? {
+        testID: cardTestId,
+        style: styles.card,
+        activeOpacity: 0.7,
+        onPress: () => onPress(record),
+      }
+    : {
+        testID: cardTestId,
+        style: styles.card,
+      };
+
   return (
-    <View style={styles.card} testID={`flight-card-${record.id}`}>
-      {/* Card Header: Timestamp & Duration */}
+    <CardWrapper {...wrapperProps}>
+      {/* Card Header: Timestamp & Actions */}
       <View style={styles.header}>
         <Text style={styles.dateText}>{formattedDate}</Text>
-        <View style={styles.durationBadge}>
-          <Text style={styles.durationText}>{formattedDuration}</Text>
+        <View style={styles.headerRightActions}>
+          <View style={styles.durationBadge}>
+            <Text style={styles.durationText}>{formattedDuration}</Text>
+          </View>
+          {onDeletePress ? (
+            <TouchableOpacity
+              testID={`delete-flight-${record.id}`}
+              style={styles.deleteButton}
+              hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
+              onPress={(e) => {
+                // Prevent bubbling to card onPress if event object exists
+                if (e && typeof e.stopPropagation === 'function') {
+                  e.stopPropagation();
+                }
+                onDeletePress(record);
+              }}
+            >
+              <Text style={styles.deleteButtonText}>✕</Text>
+            </TouchableOpacity>
+          ) : null}
         </View>
       </View>
 
@@ -66,7 +112,7 @@ export const FlightHistoryCard: React.FC<FlightHistoryCardProps> = ({ record }) 
           </Text>
         </View>
       </View>
-    </View>
+    </CardWrapper>
   );
 };
 
@@ -94,6 +140,11 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     letterSpacing: 0.2,
   },
+  headerRightActions: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+  },
   durationBadge: {
     backgroundColor: colors.surfaceSubtle,
     paddingHorizontal: 8,
@@ -106,6 +157,22 @@ const styles = StyleSheet.create({
     color: colors.metric.cyan,
     fontSize: 11,
     fontWeight: '700',
+  },
+  deleteButton: {
+    backgroundColor: 'rgba(239, 68, 68, 0.15)',
+    borderColor: colors.status.error,
+    borderWidth: 1,
+    borderRadius: 4,
+    width: 22,
+    height: 22,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  deleteButtonText: {
+    color: colors.status.error,
+    fontSize: 11,
+    fontWeight: '800',
+    lineHeight: 12,
   },
   metricsGrid: {
     flexDirection: 'row',
